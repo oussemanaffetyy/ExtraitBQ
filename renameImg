@@ -1,0 +1,22 @@
+import os
+
+def rename_images_with_numbers(folder_path):
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif']  # Liste des extensions d'images
+    image_counter = 1
+
+    for folder_name, subfolders, filenames in os.walk(folder_path):
+        for filename in filenames:
+            name, extension = os.path.splitext(filename)
+            if extension.lower() in image_extensions:
+                new_filename = f"N{image_counter:03d}{extension}"  # Using leading zeros for better sorting
+                old_path = os.path.join(folder_name, filename)
+                new_path = os.path.join(folder_name, new_filename)
+
+                os.rename(old_path, new_path)
+                print(f"Renamed '{filename}' to '{new_filename}'")
+
+                image_counter += 1
+
+if __name__ == "__main__":
+    folder_path = r"D:\ExtraitBQ\images"  # Votre chemin complet ici
+    rename_images_with_numbers(folder_path)
